@@ -2,55 +2,63 @@ package vn.edu.usth.weather;
 
 import android.os.Bundle;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link WeatherFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class ForecastFragment extends Fragment {
 
-import vn.edu.usth.weather.databinding.ActivityForecastFragmentBinding;
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-public class ForecastFragment extends AppCompatActivity {
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityForecastFragmentBinding binding;
+    public WeatherFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment WeatherFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static WeatherFragment newInstance(String param1, String param2) {
+        WeatherFragment fragment = new WeatherFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityForecastFragmentBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_forecast_fragment);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
-            }
-        });
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_forecast_fragment);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_weather, container, false);
     }
-
-
-
-
 }
